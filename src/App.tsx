@@ -5,8 +5,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import Index from "./pages/Index";
 import Products from "./pages/Products";
+import ProductDetail from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -21,9 +23,11 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
+        <FloatingWhatsApp />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
