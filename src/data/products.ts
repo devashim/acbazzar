@@ -157,7 +157,7 @@ export const products: Product[] = [
   {
     id: "7",
     name: "Cassette AC",
-    brand: "Carrier",
+    brand: "Midea",
     price: 85000,
     description: "Commercial-grade 4-way cassette AC for offices and large spaces. Uniform air distribution.",
     longDescription: "Carrier's Cassette AC is designed for commercial spaces, offices, and large rooms. The 4-way airflow ensures uniform cooling across the entire space, while the ceiling-mounted design saves floor and wall space. Auto restart after power failure ensures uninterrupted comfort.",
