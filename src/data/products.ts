@@ -157,7 +157,7 @@ export const products: Product[] = [
   {
     id: "7",
     name: "Cassette AC",
-    brand: "Carrier",
+    brand: "Midea",
     price: 85000,
     description: "Commercial-grade 4-way cassette AC for offices and large spaces. Uniform air distribution.",
     longDescription: "Carrier's Cassette AC is designed for commercial spaces, offices, and large rooms. The 4-way airflow ensures uniform cooling across the entire space, while the ceiling-mounted design saves floor and wall space. Auto restart after power failure ensures uninterrupted comfort.",
@@ -201,7 +201,11 @@ export const reviews: Review[] = [
   { id: "r8", productId: "5", name: "Arjun Nair", rating: 4, comment: "Perfect for my rented apartment. Easy to move between rooms. A bit noisy though.", date: "2026-03-18" },
 ];
 
-export const brands = [...new Set(products.map(p => p.brand))];
+export const brands = [
+  "LG", "Hyundai", "Voltas", "Blue Star", "Toshiba", "Panasonic", "Samsung",
+  "Hitachi", "Daikin", "Mitsubishi Electric", "Whirlpool", "CG", "Himstar",
+  "Sansui", "TCL", "Chigo", "Della", "Alux", "Gree", "Hisense", "MBO", "Midea",
+];
 export const capacities = [...new Set(products.map(p => p.capacity))];
 
 export const categories = [
