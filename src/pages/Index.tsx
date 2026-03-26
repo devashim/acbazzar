@@ -3,7 +3,8 @@ import { motion } from "framer-motion";
 import { ArrowRight, Snowflake, Sun, Shield, Truck, Headphones, MessageCircle, Star, Zap, Award, ThumbsUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/ProductCard";
-import { products, categories, getWhatsAppGeneralLink } from "@/data/products";
+import BrandSection from "@/components/BrandSection";
+import { products, brands, categories, getWhatsAppGeneralLink, getProductsByBrand } from "@/data/products";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const fadeUp = {
@@ -135,7 +136,24 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Why Choose Us */}
+      {/* Shop by Brand */}
+      <section className="py-16 md:py-20">
+        <div className="container">
+          <motion.div {...fadeUp} className="text-center mb-12">
+            <span className="text-sm font-semibold uppercase tracking-wider text-cool">All Brands</span>
+            <h2 className="mt-1 font-heading text-3xl font-bold md:text-4xl">Shop by Brand</h2>
+            <p className="mt-2 text-muted-foreground">Explore 4+ products from each of our {brands.length} trusted brands</p>
+          </motion.div>
+          <div className="space-y-12">
+            {brands.map((brand) => {
+              const brandProducts = getProductsByBrand(brand);
+              if (brandProducts.length === 0) return null;
+              return <BrandSection key={brand} brand={brand} products={brandProducts} />;
+            })}
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 md:py-20">
         <div className="container">
           <motion.div {...fadeUp} className="text-center mb-12">
