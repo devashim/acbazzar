@@ -201,7 +201,11 @@ export const reviews: Review[] = [
   { id: "r8", productId: "5", name: "Arjun Nair", rating: 4, comment: "Perfect for my rented apartment. Easy to move between rooms. A bit noisy though.", date: "2026-03-18" },
 ];
 
-export const brands = [...new Set(products.map(p => p.brand))];
+export const brands = [
+  "LG", "Hyundai", "Voltas", "Blue Star", "Toshiba", "Panasonic", "Samsung",
+  "Hitachi", "Daikin", "Mitsubishi Electric", "Whirlpool", "CG", "Himstar",
+  "Sansui", "TCL", "Chigo", "Della", "Alux", "Gree", "Hisense", "MBO", "Midea",
+];
 export const capacities = [...new Set(products.map(p => p.capacity))];
 
 export const categories = [
