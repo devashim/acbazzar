@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Product, getWhatsAppLink } from "@/data/products";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Star, MessageCircle } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
 
 interface BrandSectionProps {
   brand: string;
@@ -12,7 +13,29 @@ interface BrandSectionProps {
 }
 
 const BrandSection = ({ brand, products }: BrandSectionProps) => {
-  const displayed = products.slice(0, 4);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 0);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 1);
+  };
+
+  useEffect(() => {
+    checkScroll();
+    const el = scrollRef.current;
+    if (el) el.addEventListener("scroll", checkScroll);
+    return () => el?.removeEventListener("scroll", checkScroll);
+  }, []);
+
+  const scroll = (dir: "left" | "right") => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir === "left" ? -280 : 280, behavior: "smooth" });
+  };
 
   return (
     <motion.div
@@ -23,14 +46,42 @@ const BrandSection = ({ brand, products }: BrandSectionProps) => {
     >
       <div className="flex items-center justify-between mb-5">
         <h3 className="font-heading text-2xl font-bold text-foreground">{brand}</h3>
-        <Link to="/products">
-          <Button variant="ghost" size="sm" className="gap-1 text-cool hover:text-cool-dark">
-            View All <ArrowRight className="h-4 w-4" />
-          </Button>
-        </Link>
+        <div className="flex items-center gap-2">
+          <div className="hidden sm:flex gap-1">
+            <Button
+              variant="outline"
+              size="icon"
+              className="h-8 w-8 rounded-full"
+              onClick={() => scroll("left")}
+              disabled={!canScrollLeft}
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              className="h-8 w-8 rounded-full"
+              onClick={() => scroll("right")}
+              disabled={!canScrollRight}
+            >
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          </div>
+          <Link to="/products">
+            <Button variant="ghost" size="sm" className="gap-1 text-cool hover:text-cool-dark">
+              View All <ArrowRight className="h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
       </div>
-      <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
-        {displayed.map((product) => {
+
+      {/* Horizontal scroll container */}
+      <div
+        ref={scrollRef}
+        className="flex gap-4 overflow-x-auto scroll-smooth pb-2 snap-x snap-mandatory scrollbar-hide"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
+        {products.map((product) => {
           const isCooling = product.type === "cooling";
           const isBoth = product.type === "both";
           const discount = product.originalPrice
@@ -40,7 +91,7 @@ const BrandSection = ({ brand, products }: BrandSectionProps) => {
           return (
             <div
               key={product.id}
-              className="group relative overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+              className="group relative flex-shrink-0 w-[240px] sm:w-[260px] overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 snap-start"
             >
               {product.badge && (
                 <div className="absolute left-2 top-2 z-10">
@@ -56,7 +107,7 @@ const BrandSection = ({ brand, products }: BrandSectionProps) => {
               )}
               <div className={`h-1 w-full ${isCooling ? "bg-gradient-cool" : "bg-gradient-warm"}`} />
               <Link to={`/product/${product.id}`}>
-                <div className={`relative h-36 overflow-hidden ${isCooling ? "bg-cool-light" : "bg-warm-light"}`}>
+                <div className={`relative h-40 overflow-hidden ${isCooling ? "bg-cool-light" : "bg-warm-light"}`}>
                   <img
                     src={product.image}
                     alt={`${product.brand} ${product.name}`}
@@ -78,6 +129,16 @@ const BrandSection = ({ brand, products }: BrandSectionProps) => {
                 <Link to={`/product/${product.id}`}>
                   <h4 className="text-sm font-heading font-semibold text-foreground hover:text-cool transition-colors line-clamp-1">{product.name}</h4>
                 </Link>
+
+                {/* Key features */}
+                <div className="mt-1.5 flex flex-wrap gap-1">
+                  {product.features.slice(0, 2).map((f) => (
+                    <span key={f} className="rounded-full bg-muted px-2 py-0.5 text-[9px] font-medium text-muted-foreground">
+                      {f}
+                    </span>
+                  ))}
+                </div>
+
                 <div className="mt-2 flex items-end justify-between">
                   <div className="flex flex-col">
                     <span className="text-lg font-heading font-bold text-foreground">₹{product.price.toLocaleString("en-IN")}</span>
