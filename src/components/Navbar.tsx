@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Snowflake } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getWhatsAppGeneralLink } from "@/data/products";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,6 +11,8 @@ const Navbar = () => {
   const links = [
     { to: "/", label: "Home" },
     { to: "/products", label: "Products" },
+    { to: "/about", label: "About" },
+    { to: "/contact", label: "Contact" },
   ];
 
   return (
@@ -34,7 +37,7 @@ const Navbar = () => {
               </Button>
             </Link>
           ))}
-          <a href={`https://wa.me/919876543210`} target="_blank" rel="noopener noreferrer">
+          <a href={getWhatsAppGeneralLink()} target="_blank" rel="noopener noreferrer">
             <Button size="sm" className="ml-2 bg-gradient-warm text-secondary-foreground hover:opacity-90">
               WhatsApp Us
             </Button>
@@ -58,7 +61,7 @@ const Navbar = () => {
                 </Button>
               </Link>
             ))}
-            <a href={`https://wa.me/919876543210`} target="_blank" rel="noopener noreferrer">
+            <a href={getWhatsAppGeneralLink()} target="_blank" rel="noopener noreferrer">
               <Button className="w-full bg-gradient-warm text-secondary-foreground hover:opacity-90">
                 WhatsApp Us
               </Button>

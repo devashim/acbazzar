@@ -1,4 +1,4 @@
-import { Snowflake, Phone, Mail, MapPin, MessageCircle } from "lucide-react";
+import { Snowflake, Phone, MapPin, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { getWhatsAppGeneralLink } from "@/data/products";
 
@@ -34,6 +34,8 @@ const Footer = () => {
             <div className="flex flex-col gap-2.5 text-sm opacity-70">
               <Link to="/" className="hover:opacity-100 transition-opacity">Home</Link>
               <Link to="/products" className="hover:opacity-100 transition-opacity">All Products</Link>
+              <Link to="/about" className="hover:opacity-100 transition-opacity">About Us</Link>
+              <Link to="/contact" className="hover:opacity-100 transition-opacity">Contact</Link>
             </div>
           </div>
 
@@ -53,15 +55,15 @@ const Footer = () => {
           <div>
             <h4 className="font-heading font-semibold mb-4">Contact Us</h4>
             <div className="flex flex-col gap-3 text-sm opacity-70">
-              <a href="tel:+919876543210" className="flex items-center gap-2.5 hover:opacity-100 transition-opacity">
-                <Phone className="h-4 w-4 shrink-0" /> +91 98765 43210
+              <a href="tel:+9779804085156" className="flex items-center gap-2.5 hover:opacity-100 transition-opacity">
+                <Phone className="h-4 w-4 shrink-0" /> +977 9804085156
               </a>
-              <a href="mailto:sales@coolbreeze.in" className="flex items-center gap-2.5 hover:opacity-100 transition-opacity">
-                <Mail className="h-4 w-4 shrink-0" /> sales@coolbreeze.in
+              <a href={getWhatsAppGeneralLink()} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 hover:opacity-100 transition-opacity">
+                <MessageCircle className="h-4 w-4 shrink-0" /> WhatsApp Us
               </a>
               <div className="flex items-start gap-2.5">
                 <MapPin className="h-4 w-4 shrink-0 mt-0.5" />
-                <span>Shop No. 12, Electronics Market, Lamington Road, Mumbai 400004</span>
+                <span>Contact us for store location</span>
               </div>
             </div>
           </div>
@@ -69,7 +71,7 @@ const Footer = () => {
 
         <div className="mt-10 border-t border-background/20 pt-6 flex flex-col items-center justify-between gap-4 sm:flex-row">
           <p className="text-xs opacity-50">© {new Date().getFullYear()} CoolBreeze. All rights reserved.</p>
-          <p className="text-xs opacity-50">Authorized dealer of LG, Samsung, Daikin, Voltas, Hitachi, Carrier & more</p>
+          <p className="text-xs opacity-50">Authorized dealer of TOSOT, MBO, Midea, Daikin & Mitsubishi</p>
         </div>
       </div>
     </footer>

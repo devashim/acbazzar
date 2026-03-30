@@ -2,10 +2,8 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Snowflake, Sun, Shield, Truck, Headphones, MessageCircle, Star, Zap, Award, ThumbsUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import ProductCard from "@/components/ProductCard";
 import BrandSection from "@/components/BrandSection";
 import { products, brands, categories, getWhatsAppGeneralLink, getProductsByBrand } from "@/data/products";
-import heroBg from "@/assets/hero-bg.jpg";
 
 const fadeUp = {
   initial: { opacity: 0, y: 40 },
@@ -15,14 +13,13 @@ const fadeUp = {
 };
 
 const Index = () => {
-  const featured = products.filter((p) => p.badge).slice(0, 4);
+  const featured = products.filter((p) => p.badge).slice(0, 8);
 
   return (
     <div className="min-h-screen">
       {/* Hero */}
       <section className="relative overflow-hidden py-24 md:py-36 lg:py-44">
-        <img src={heroBg} alt="" className="absolute inset-0 h-full w-full object-cover opacity-40" width={1920} height={800} />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/70 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-br from-cool-light via-background to-warm-light" />
         <div className="container relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -43,7 +40,7 @@ const Index = () => {
               Today!
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              Premium air conditioners from top brands at unbeatable prices. Browse, compare, and order directly via WhatsApp — it's that simple.
+              Premium air conditioners from TOSOT, MBO, Midea, Daikin & Mitsubishi at unbeatable prices. Order directly via WhatsApp.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link to="/products">
@@ -68,7 +65,7 @@ const Index = () => {
           >
             {[
               { value: "10K+", label: "Happy Customers" },
-              { value: "50+", label: "AC Models" },
+              { value: `${products.length}+`, label: "AC Models" },
               { value: "4.8★", label: "Average Rating" },
             ].map((stat) => (
               <div key={stat.label}>
@@ -87,7 +84,7 @@ const Index = () => {
             <h2 className="font-heading text-3xl font-bold md:text-4xl">Shop by Category</h2>
             <p className="mt-3 text-muted-foreground">Find the right type of AC for your needs</p>
           </motion.div>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
             {categories.map((cat, i) => (
               <motion.div key={cat.name} {...fadeUp} transition={{ duration: 0.4, delay: i * 0.07 }}>
                 <Link
@@ -114,35 +111,13 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Featured Products */}
-      <section className="bg-muted/50 py-16 md:py-20">
-        <div className="container">
-          <motion.div {...fadeUp} className="flex flex-col items-start justify-between gap-4 mb-10 sm:flex-row sm:items-end">
-            <div>
-              <span className="text-sm font-semibold uppercase tracking-wider text-cool">Handpicked for You</span>
-              <h2 className="mt-1 font-heading text-3xl font-bold md:text-4xl">Featured Products</h2>
-            </div>
-            <Link to="/products">
-              <Button variant="ghost" className="gap-1 text-cool hover:text-cool-dark">
-                View All Products <ArrowRight className="h-4 w-4" />
-              </Button>
-            </Link>
-          </motion.div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {featured.map((p, i) => (
-              <ProductCard key={p.id} product={p} index={i} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Shop by Brand */}
+      {/* Shop by Brand - Horizontal Scroll */}
       <section className="py-16 md:py-20">
         <div className="container">
           <motion.div {...fadeUp} className="text-center mb-12">
             <span className="text-sm font-semibold uppercase tracking-wider text-cool">All Brands</span>
             <h2 className="mt-1 font-heading text-3xl font-bold md:text-4xl">Shop by Brand</h2>
-            <p className="mt-2 text-muted-foreground">Explore 4+ products from each of our {brands.length} trusted brands</p>
+            <p className="mt-2 text-muted-foreground">Explore products from our {brands.length} trusted brands</p>
           </motion.div>
           <div className="space-y-12">
             {brands.map((brand) => {
@@ -154,7 +129,8 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-16 md:py-20">
+      {/* Why Choose Us */}
+      <section className="bg-muted/50 py-16 md:py-20">
         <div className="container">
           <motion.div {...fadeUp} className="text-center mb-12">
             <span className="text-sm font-semibold uppercase tracking-wider text-warm">Why Customers Love Us</span>
@@ -162,7 +138,7 @@ const Index = () => {
           </motion.div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: Shield, title: "100% Genuine", desc: "Authorized dealer for all top AC brands. Every product comes with manufacturer warranty.", color: "cool" },
+              { icon: Shield, title: "100% Genuine", desc: "Authorized dealer for TOSOT, MBO, Midea, Daikin & Mitsubishi. Full manufacturer warranty.", color: "cool" },
               { icon: Truck, title: "Free Installation", desc: "Professional installation by certified technicians included with every purchase.", color: "warm" },
               { icon: Award, title: "Best Prices", desc: "We guarantee the best prices. Found it cheaper? We'll match it.", color: "cool" },
               { icon: Headphones, title: "24/7 WhatsApp Support", desc: "Got questions? Our team is just a WhatsApp message away, anytime.", color: "warm" },
@@ -184,7 +160,7 @@ const Index = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="bg-muted/50 py-16 md:py-20">
+      <section className="py-16 md:py-20">
         <div className="container">
           <motion.div {...fadeUp} className="text-center mb-12">
             <span className="text-sm font-semibold uppercase tracking-wider text-cool">Testimonials</span>
@@ -192,9 +168,9 @@ const Index = () => {
           </motion.div>
           <div className="grid gap-6 md:grid-cols-3">
             {[
-              { name: "Rahul S.", city: "Delhi", text: "Ordered my LG AC via WhatsApp. Got it installed the next day. Incredible service!", rating: 5 },
-              { name: "Priya M.", city: "Mumbai", text: "Best prices I found anywhere. The team helped me choose the right capacity for my room.", rating: 5 },
-              { name: "Vikram K.", city: "Bangalore", text: "Bought a Daikin Hot & Cold AC. Perfect for Bangalore's unpredictable weather. Highly recommend!", rating: 5 },
+              { name: "Rahul S.", city: "Kathmandu", text: "Ordered my TOSOT AC via WhatsApp. Got it installed the next day. Incredible service!", rating: 5 },
+              { name: "Priya M.", city: "Pokhara", text: "Best prices I found anywhere. The team helped me choose the right Daikin for my room.", rating: 5 },
+              { name: "Vikram K.", city: "Biratnagar", text: "Bought a Mitsubishi Hot & Cold AC. Perfect for our weather. Highly recommend CoolBreeze!", rating: 5 },
             ].map((t, i) => (
               <motion.div key={t.name} {...fadeUp} transition={{ duration: 0.4, delay: i * 0.1 }}>
                 <div className="rounded-xl border border-border bg-card p-6">
