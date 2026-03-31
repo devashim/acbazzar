@@ -11,7 +11,7 @@ const Navbar = () => {
   const links = [
     { to: "/", label: "Home" },
     { to: "/products", label: "Products" },
-    { to: "/midea", label: "Midea ACs" },
+    
     { to: "/about", label: "About" },
     { to: "/contact", label: "Contact" },
   ];
