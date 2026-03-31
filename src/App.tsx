@@ -11,7 +11,7 @@ import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import MideaProducts from "./pages/MideaProducts";
+
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
