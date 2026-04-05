@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Snowflake } from "lucide-react";
+import { Menu, X, Snowflake, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getWhatsAppGeneralLink } from "@/data/products";
 
@@ -38,6 +38,11 @@ const Navbar = () => {
               </Button>
             </Link>
           ))}
+          <a href="tel:9804085156">
+            <Button size="sm" variant="outline" className="ml-2 gap-1.5">
+              <Phone className="h-4 w-4" /> 9804085156
+            </Button>
+          </a>
           <a href={getWhatsAppGeneralLink()} target="_blank" rel="noopener noreferrer">
             <Button size="sm" className="ml-2 bg-gradient-warm text-secondary-foreground hover:opacity-90">
               WhatsApp Us
@@ -62,6 +67,11 @@ const Navbar = () => {
                 </Button>
               </Link>
             ))}
+            <a href="tel:9804085156">
+              <Button variant="outline" className="w-full gap-1.5">
+                <Phone className="h-4 w-4" /> 9804085156
+              </Button>
+            </a>
             <a href={getWhatsAppGeneralLink()} target="_blank" rel="noopener noreferrer">
               <Button className="w-full bg-gradient-warm text-secondary-foreground hover:opacity-90">
                 WhatsApp Us
