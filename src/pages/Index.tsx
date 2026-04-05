@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Snowflake, Sun, Shield, Truck, Headphones, MessageCircle, Star, Zap, Award, ThumbsUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BrandSection from "@/components/BrandSection";
+import HeroSlider from "@/components/HeroSlider";
 import { products, brands, categories, getWhatsAppGeneralLink, getProductsByBrand } from "@/data/products";
 
 const fadeUp = {
