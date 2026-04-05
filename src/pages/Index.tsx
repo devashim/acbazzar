@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Snowflake, Sun, Shield, Truck, Headphones, MessageCircle, Star, Zap, Award, ThumbsUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BrandSection from "@/components/BrandSection";
+import HeroSlider from "@/components/HeroSlider";
 import { products, brands, categories, getWhatsAppGeneralLink, getProductsByBrand } from "@/data/products";
 
 const fadeUp = {
@@ -17,65 +18,8 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero */}
-      <section className="relative overflow-hidden py-24 md:py-36 lg:py-44">
-        <div className="absolute inset-0 bg-gradient-to-br from-cool-light via-background to-warm-light" />
-        <div className="container relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="mx-auto max-w-3xl text-center"
-          >
-            <div className="mx-auto flex items-center justify-center gap-3 mb-6">
-              <Snowflake className="h-5 w-5 text-cool animate-float" />
-              <span className="rounded-full border border-border bg-card/80 px-4 py-1.5 text-sm font-medium text-muted-foreground backdrop-blur-sm">
-                #1 AC Store — Trusted by 10,000+ Customers
-              </span>
-              <Sun className="h-5 w-5 text-warm animate-float" style={{ animationDelay: "1.5s" }} />
-            </div>
-            <h1 className="font-heading text-4xl font-extrabold leading-[1.1] tracking-tight md:text-6xl lg:text-7xl">
-              Find Your Perfect{" "}
-              <span className="text-gradient-cool">AC</span>{" "}
-              Today!
-            </h1>
-            <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              Premium air conditioners from TOSOT, MBO, Midea, Daikin & Mitsubishi at unbeatable prices. Order directly via WhatsApp.
-            </p>
-            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Link to="/products">
-                <Button size="lg" className="h-13 gap-2 bg-gradient-cool px-8 text-base text-primary-foreground shadow-lg hover:opacity-90 transition-all hover:shadow-xl">
-                  <Zap className="h-5 w-5" /> Shop Now <ArrowRight className="h-4 w-4" />
-                </Button>
-              </Link>
-              <a href={getWhatsAppGeneralLink()} target="_blank" rel="noopener noreferrer">
-                <Button size="lg" variant="outline" className="h-13 gap-2 border-[#25D366] px-8 text-base text-[#25D366] hover:bg-[#25D366]/10 transition-all">
-                  <MessageCircle className="h-5 w-5" /> Order via WhatsApp
-                </Button>
-              </a>
-            </div>
-          </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="mx-auto mt-16 grid max-w-2xl grid-cols-3 gap-6 text-center"
-          >
-            {[
-              { value: "10K+", label: "Happy Customers" },
-              { value: `${products.length}+`, label: "AC Models" },
-              { value: "4.8★", label: "Average Rating" },
-            ].map((stat) => (
-              <div key={stat.label}>
-                <p className="text-2xl font-heading font-bold text-foreground md:text-3xl">{stat.value}</p>
-                <p className="mt-1 text-sm text-muted-foreground">{stat.label}</p>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+      {/* Hero Slider */}
+      <HeroSlider />
 
       {/* Categories */}
       <section className="py-16 md:py-20">
