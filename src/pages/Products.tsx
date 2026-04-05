@@ -1,4 +1,5 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { SlidersHorizontal, Search, X } from "lucide-react";
 import { products, brands, capacities, ProductType } from "@/data/products";
@@ -16,12 +17,33 @@ const typeFilters: { label: string; value: ProductType | "all" }[] = [
 type SortOption = "default" | "price-low" | "price-high" | "rating";
 
 const Products = () => {
+  const [searchParams] = useSearchParams();
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState<ProductType | "all">("all");
   const [brandFilter, setBrandFilter] = useState<string>("all");
   const [capacityFilter, setCapacityFilter] = useState<string>("all");
   const [sort, setSort] = useState<SortOption>("default");
   const [showFilters, setShowFilters] = useState(false);
+
+  useEffect(() => {
+    const brand = searchParams.get("brand");
+    const type = searchParams.get("type");
+    const capacity = searchParams.get("capacity");
+
+    if (brand) {
+      const match = brands.find(b => b.toLowerCase() === brand.toLowerCase());
+      if (match) setBrandFilter(match);
+    }
+    if (type) {
+      if (type === "both") setTypeFilter("both");
+      else setSearch(type.replace(/-/g, " "));
+    }
+    if (capacity) {
+      const cap = capacity.replace("ton", " Ton");
+      const match = capacities.find(c => c.toLowerCase() === cap.toLowerCase());
+      if (match) setCapacityFilter(match);
+    }
+  }, [searchParams]);
 
   const filtered = useMemo(() => {
     let result = [...products];

@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Snowflake, Sun, Shield, Truck, Headphones, MessageCircle, Star, Zap, Award, ThumbsUp } from "lucide-react";
+import { ArrowRight, Snowflake, Sun, Shield, Truck, Headphones, MessageCircle, Star, Zap, Award, ThumbsUp, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import BrandSection from "@/components/BrandSection";
 import HeroSlider from "@/components/HeroSlider";
 import { products, brands, categories, getWhatsAppGeneralLink, getProductsByBrand } from "@/data/products";
@@ -13,8 +15,34 @@ const fadeUp = {
   transition: { duration: 0.6 },
 };
 
+const acTypeOptions = [
+  { label: "Split AC", value: "split" },
+  { label: "Window AC", value: "window" },
+  { label: "Portable AC", value: "portable" },
+  { label: "Cassette AC", value: "cassette" },
+  { label: "Hot & Cold AC", value: "both" },
+];
+
+const capacityOptions = [
+  { label: "1 Ton", value: "1ton" },
+  { label: "1.5 Ton", value: "1.5ton" },
+  { label: "2 Ton", value: "2ton" },
+];
+
 const Index = () => {
+  const navigate = useNavigate();
+  const [filterBrand, setFilterBrand] = useState("");
+  const [filterType, setFilterType] = useState("");
+  const [filterCapacity, setFilterCapacity] = useState("");
   const featured = products.filter((p) => p.badge).slice(0, 8);
+
+  const handleFindAC = () => {
+    const params = new URLSearchParams();
+    if (filterBrand) params.set("brand", filterBrand);
+    if (filterType) params.set("type", filterType);
+    if (filterCapacity) params.set("capacity", filterCapacity);
+    navigate(`/products?${params.toString()}`);
+  };
 
   return (
     <div className="min-h-screen">
@@ -52,6 +80,67 @@ const Index = () => {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Find Your Perfect AC Filter */}
+      <section className="py-16 md:py-20 bg-muted/30">
+        <div className="container">
+          <motion.div {...fadeUp} className="text-center mb-10">
+            <span className="text-sm font-semibold uppercase tracking-wider text-cool">Smart Search</span>
+            <h2 className="mt-1 font-heading text-3xl font-bold md:text-4xl">Find Your Perfect AC</h2>
+            <p className="mt-2 text-muted-foreground">Filter by brand, type, and capacity to find the best AC for your needs</p>
+          </motion.div>
+          <motion.div {...fadeUp} transition={{ duration: 0.5, delay: 0.1 }}>
+            <div className="mx-auto max-w-4xl rounded-2xl border border-border bg-card p-6 shadow-lg md:p-8">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-foreground">Brand</label>
+                  <Select value={filterBrand} onValueChange={setFilterBrand}>
+                    <SelectTrigger className="rounded-lg shadow-sm">
+                      <SelectValue placeholder="Select Brand" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {brands.map((b) => (
+                        <SelectItem key={b} value={b.toLowerCase()}>{b}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-foreground">AC Type</label>
+                  <Select value={filterType} onValueChange={setFilterType}>
+                    <SelectTrigger className="rounded-lg shadow-sm">
+                      <SelectValue placeholder="Select AC Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {acTypeOptions.map((opt) => (
+                        <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-foreground">Capacity</label>
+                  <Select value={filterCapacity} onValueChange={setFilterCapacity}>
+                    <SelectTrigger className="rounded-lg shadow-sm">
+                      <SelectValue placeholder="Select Capacity" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {capacityOptions.map((opt) => (
+                        <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex items-end">
+                  <Button onClick={handleFindAC} className="w-full gap-2 rounded-lg transition-transform hover:scale-[1.02] active:scale-95" size="lg">
+                    <Search className="h-4 w-4" /> Find AC
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
