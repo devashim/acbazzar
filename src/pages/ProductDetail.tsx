@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, Star, MessageCircle, Shield, Truck, RotateCcw, Check } from "lucide-react";
 import { products, reviews as allReviews, getWhatsAppLink } from "@/data/products";
@@ -10,6 +11,10 @@ import ProductCard from "@/components/ProductCard";
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const product = products.find((p) => p.id === id);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [id]);
 
   if (!product) {
     return (
