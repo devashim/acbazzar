@@ -78,12 +78,12 @@ const Products = () => {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <div className="bg-muted/50 py-10 md:py-14">
-        <div className="container text-center">
+      <div className="bg-muted/50 py-8 sm:py-10 md:py-14">
+        <div className="container px-4 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="font-heading text-4xl font-bold md:text-5xl"
+            className="font-heading text-3xl font-bold sm:text-4xl md:text-5xl"
           >
             Our <span className="text-gradient-cool">Products</span>
           </motion.h1>
@@ -91,7 +91,7 @@ const Products = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="mt-3 text-muted-foreground"
+            className="mt-2 sm:mt-3 text-sm sm:text-base text-muted-foreground"
           >
             {products.length} premium ACs from top brands • Order instantly via WhatsApp
           </motion.p>
@@ -100,20 +100,20 @@ const Products = () => {
 
       {/* Sticky Filter Bar */}
       <div className="sticky top-16 z-40 border-b border-border bg-card/95 backdrop-blur-md">
-        <div className="container py-3">
-          <div className="flex flex-wrap items-center gap-3">
+        <div className="container px-4 py-2.5 sm:py-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             {/* Search */}
-            <div className="relative flex-1 min-w-[200px]">
+            <div className="relative flex-1 min-w-0">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 placeholder="Search ACs..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="pl-9"
+                className="pl-9 text-sm"
               />
             </div>
 
-            {/* Type filter pills */}
+            {/* Type filter pills - hidden on mobile */}
             <div className="hidden gap-1 sm:flex">
               {typeFilters.map((f) => (
                 <Button
@@ -129,21 +129,21 @@ const Products = () => {
             </div>
 
             {/* More filters toggle */}
-            <Button variant="outline" size="sm" className="gap-1.5" onClick={() => setShowFilters(!showFilters)}>
-              <SlidersHorizontal className="h-4 w-4" />
-              Filters
+            <Button variant="outline" size="sm" className="gap-1 sm:gap-1.5 text-xs sm:text-sm" onClick={() => setShowFilters(!showFilters)}>
+              <SlidersHorizontal className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              <span className="hidden xs:inline">Filters</span>
               {hasActiveFilters && <span className="flex h-4 w-4 items-center justify-center rounded-full bg-cool text-[10px] text-primary-foreground">!</span>}
             </Button>
 
             {/* Sort */}
             <Select value={sort} onValueChange={(v) => setSort(v as SortOption)}>
-              <SelectTrigger className="w-[150px]">
+              <SelectTrigger className="w-[120px] sm:w-[150px] text-xs sm:text-sm">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="default">Default</SelectItem>
-                <SelectItem value="price-low">Price: Low to High</SelectItem>
-                <SelectItem value="price-high">Price: High to Low</SelectItem>
+                <SelectItem value="price-low">Price: Low → High</SelectItem>
+                <SelectItem value="price-high">Price: High → Low</SelectItem>
                 <SelectItem value="rating">Top Rated</SelectItem>
               </SelectContent>
             </Select>
@@ -155,19 +155,19 @@ const Products = () => {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="mt-3 flex flex-wrap items-center gap-3 border-t border-border pt-3"
+              className="mt-2 sm:mt-3 flex flex-wrap items-center gap-2 sm:gap-3 border-t border-border pt-2 sm:pt-3"
             >
               {/* Mobile type filter */}
               <div className="flex gap-1 sm:hidden">
                 {typeFilters.map((f) => (
-                  <Button key={f.value} variant={typeFilter === f.value ? "default" : "outline"} size="sm" onClick={() => setTypeFilter(f.value)}>
+                  <Button key={f.value} variant={typeFilter === f.value ? "default" : "outline"} size="sm" className="text-xs" onClick={() => setTypeFilter(f.value)}>
                     {f.label}
                   </Button>
                 ))}
               </div>
 
               <Select value={brandFilter} onValueChange={setBrandFilter}>
-                <SelectTrigger className="w-[150px]">
+                <SelectTrigger className="w-[130px] sm:w-[150px] text-xs sm:text-sm">
                   <SelectValue placeholder="Brand" />
                 </SelectTrigger>
                 <SelectContent>
@@ -177,7 +177,7 @@ const Products = () => {
               </Select>
 
               <Select value={capacityFilter} onValueChange={setCapacityFilter}>
-                <SelectTrigger className="w-[150px]">
+                <SelectTrigger className="w-[130px] sm:w-[150px] text-xs sm:text-sm">
                   <SelectValue placeholder="Capacity" />
                 </SelectTrigger>
                 <SelectContent>
@@ -187,8 +187,8 @@ const Products = () => {
               </Select>
 
               {hasActiveFilters && (
-                <Button variant="ghost" size="sm" onClick={clearFilters} className="gap-1 text-destructive">
-                  <X className="h-4 w-4" /> Clear All
+                <Button variant="ghost" size="sm" onClick={clearFilters} className="gap-1 text-xs sm:text-sm text-destructive">
+                  <X className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> Clear All
                 </Button>
               )}
             </motion.div>
@@ -197,17 +197,17 @@ const Products = () => {
       </div>
 
       {/* Product Grid */}
-      <div className="container py-8">
-        <p className="mb-6 text-sm text-muted-foreground">{filtered.length} product{filtered.length !== 1 ? "s" : ""} found</p>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="container px-4 py-6 sm:py-8">
+        <p className="mb-4 sm:mb-6 text-xs sm:text-sm text-muted-foreground">{filtered.length} product{filtered.length !== 1 ? "s" : ""} found</p>
+        <div className="grid gap-4 sm:gap-6 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filtered.map((p, i) => (
             <ProductCard key={p.id} product={p} index={i} />
           ))}
         </div>
 
         {filtered.length === 0 && (
-          <div className="py-20 text-center">
-            <p className="text-lg font-medium text-muted-foreground">No products match your filters</p>
+          <div className="py-16 sm:py-20 text-center">
+            <p className="text-base sm:text-lg font-medium text-muted-foreground">No products match your filters</p>
             <Button variant="outline" className="mt-4" onClick={clearFilters}>Clear Filters</Button>
           </div>
         )}
