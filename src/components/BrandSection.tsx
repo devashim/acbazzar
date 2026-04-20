@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Star, MessageCircle } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
+import { useDragScroll } from "@/hooks/useDragScroll";
 
 interface BrandSectionProps {
   brand: string;
@@ -16,6 +17,7 @@ const BrandSection = ({ brand, products }: BrandSectionProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  useDragScroll(scrollRef);
 
   const checkScroll = () => {
     const el = scrollRef.current;

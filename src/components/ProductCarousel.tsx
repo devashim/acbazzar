@@ -5,6 +5,7 @@ import { Product, getWhatsAppLink } from "@/data/products";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useRef, useState, useEffect } from "react";
+import { useDragScroll } from "@/hooks/useDragScroll";
 
 interface ProductCarouselProps {
   title: string;
@@ -19,6 +20,7 @@ const ProductCarousel = ({ title, subtitle, eyebrow, icon: Icon, products, accen
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  useDragScroll(scrollRef);
 
   const checkScroll = () => {
     const el = scrollRef.current;
