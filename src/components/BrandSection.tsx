@@ -31,19 +31,7 @@ const BrandSection = ({ brand, products }: BrandSectionProps) => {
     return () => el?.removeEventListener("scroll", checkScroll);
   }, []);
 
-  // Auto-scroll
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const interval = setInterval(() => {
-      if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 1) {
-        el.scrollTo({ left: 0, behavior: "smooth" });
-      } else {
-        el.scrollBy({ left: 280, behavior: "smooth" });
-      }
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
+  // Auto-scroll disabled — users scroll manually via touch/swipe or arrows
 
   const scroll = (dir: "left" | "right") => {
     const el = scrollRef.current;
@@ -89,11 +77,11 @@ const BrandSection = ({ brand, products }: BrandSectionProps) => {
         </div>
       </div>
 
-      {/* Horizontal scroll container */}
+      {/* Horizontal scroll container — touch-friendly free swipe */}
       <div
         ref={scrollRef}
-        className="flex gap-4 overflow-x-auto scroll-smooth pb-2 snap-x snap-mandatory scrollbar-hide"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        className="flex gap-4 overflow-x-auto pb-2 snap-x snap-proximity scrollbar-hide overscroll-x-contain"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none", WebkitOverflowScrolling: "touch" }}
       >
         {products.map((product) => {
           const isCooling = product.type === "cooling";
