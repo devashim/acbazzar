@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import BrandSection from "@/components/BrandSection";
 import ProductCarousel from "@/components/ProductCarousel";
 import HeroSlider from "@/components/HeroSlider";
+import PromoBanner from "@/components/PromoBanner";
 import { products, brands, getWhatsAppGeneralLink, getProductsByBrand } from "@/data/products";
 
 const fadeUp = {
@@ -66,6 +67,9 @@ const Index = () => {
       {/* Hero Slider */}
       <HeroSlider />
 
+      {/* Promotional Banner */}
+      <PromoBanner />
+
       {/* Smart Product Sections */}
       <section className="py-12 md:py-16">
         <div className="container space-y-14 md:space-y-16">
@@ -112,7 +116,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Find Your Perfect AC Filter */}
+      {/* Find Your Perfect AC Filter - moved below smart sections */}
       <section className="py-16 md:py-20 bg-muted/30">
         <div className="container">
           <motion.div {...fadeUp} className="text-center mb-10">
