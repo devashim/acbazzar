@@ -35,7 +35,23 @@ const Index = () => {
   const [filterBrand, setFilterBrand] = useState("");
   const [filterType, setFilterType] = useState("");
   const [filterCapacity, setFilterCapacity] = useState("");
-  const featured = products.filter((p) => p.badge).slice(0, 8);
+  // Smart sections derived from product data
+  const smartSections = useMemo(() => {
+    const sorted = [...products];
+    const deals = sorted
+      .filter((p) => p.originalPrice && p.originalPrice > p.price)
+      .sort((a, b) => ((b.originalPrice! - b.price) / b.originalPrice!) - ((a.originalPrice! - a.price) / a.originalPrice!))
+      .slice(0, 10);
+    const bestSellers = sorted
+      .filter((p) => p.badge === "Best Seller")
+      .concat([...sorted].sort((a, b) => b.reviewCount - a.reviewCount))
+      .filter((p, i, arr) => arr.findIndex((x) => x.id === p.id) === i)
+      .slice(0, 10);
+    const trending = [...sorted].sort((a, b) => b.rating * b.reviewCount - a.rating * a.reviewCount).slice(0, 10);
+    const newArrivals = [...sorted].reverse().slice(0, 10);
+    const recommended = [...sorted].sort((a, b) => b.rating - a.rating).slice(0, 10);
+    return { deals, bestSellers, trending, newArrivals, recommended };
+  }, []);
 
   const handleFindAC = () => {
     const params = new URLSearchParams();
@@ -50,37 +66,49 @@ const Index = () => {
       {/* Hero Slider */}
       <HeroSlider />
 
-      {/* Categories */}
-      <section className="py-16 md:py-20">
-        <div className="container">
-          <motion.div {...fadeUp} className="text-center mb-12">
-            <h2 className="font-heading text-3xl font-bold md:text-4xl">Shop by Category</h2>
-            <p className="mt-3 text-muted-foreground">Find the right type of AC for your needs</p>
-          </motion.div>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
-            {categories.map((cat, i) => (
-              <motion.div key={cat.name} {...fadeUp} transition={{ duration: 0.4, delay: i * 0.07 }}>
-                <Link
-                  to="/products"
-                  className={`group flex flex-col items-center rounded-xl border border-border p-5 text-center transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
-                    cat.type === "both" ? "bg-warm-light hover:border-warm" : "bg-cool-light hover:border-cool"
-                  }`}
-                >
-                  <div className={`mb-3 flex h-12 w-12 items-center justify-center rounded-full transition-transform group-hover:scale-110 ${
-                    cat.type === "both" ? "bg-gradient-warm" : "bg-gradient-cool"
-                  }`}>
-                    {cat.type === "both" ? (
-                      <Sun className="h-6 w-6 text-secondary-foreground" />
-                    ) : (
-                      <Snowflake className="h-6 w-6 text-primary-foreground" />
-                    )}
-                  </div>
-                  <h3 className="text-sm font-heading font-semibold text-foreground">{cat.name}</h3>
-                  <p className="mt-1 text-xs text-muted-foreground">{cat.count} products</p>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+      {/* Smart Product Sections */}
+      <section className="py-12 md:py-16">
+        <div className="container space-y-14 md:space-y-16">
+          <ProductCarousel
+            eyebrow="Limited Time"
+            title="Exciting Offers / Deals of the Day"
+            subtitle="Biggest discounts, hand-picked for you"
+            icon={Flame}
+            accent="warm"
+            products={smartSections.deals}
+          />
+          <ProductCarousel
+            eyebrow="Customer Favorites"
+            title="Best Sellers"
+            subtitle="Top-rated ACs loved by thousands of customers"
+            icon={Award}
+            accent="cool"
+            products={smartSections.bestSellers}
+          />
+          <ProductCarousel
+            eyebrow="What's Hot"
+            title="Trending Products"
+            subtitle="Most viewed and ordered this week"
+            icon={TrendingUp}
+            accent="warm"
+            products={smartSections.trending}
+          />
+          <ProductCarousel
+            eyebrow="Just In"
+            title="New Arrivals"
+            subtitle="Latest models with cutting-edge cooling tech"
+            icon={Sparkles}
+            accent="cool"
+            products={smartSections.newArrivals}
+          />
+          <ProductCarousel
+            eyebrow="Picked For You"
+            title="Recommended for You"
+            subtitle="Smart picks based on quality, value, and ratings"
+            icon={Heart}
+            accent="warm"
+            products={smartSections.recommended}
+          />
         </div>
       </section>
 
