@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Snowflake, Sun, Shield, Truck, Headphones, MessageCircle, Star, Zap, Award, ThumbsUp, Search } from "lucide-react";
+import { ArrowRight, Shield, Truck, Headphones, MessageCircle, Star, Award, ThumbsUp, Search, Flame, TrendingUp, Sparkles, Heart, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import BrandSection from "@/components/BrandSection";
+import ProductCarousel from "@/components/ProductCarousel";
 import HeroSlider from "@/components/HeroSlider";
-import { products, brands, categories, getWhatsAppGeneralLink, getProductsByBrand } from "@/data/products";
+import { products, brands, getWhatsAppGeneralLink, getProductsByBrand } from "@/data/products";
 
 const fadeUp = {
   initial: { opacity: 0, y: 40 },
