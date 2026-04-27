@@ -2,11 +2,12 @@ import { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { SlidersHorizontal, Search, X } from "lucide-react";
-import { products, brands, capacities, ProductType } from "@/data/products";
+import { products, brands, capacities, categories, Product, ProductType } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 const typeFilters: { label: string; value: ProductType | "all" }[] = [
   { label: "All", value: "all" },
@@ -15,6 +16,17 @@ const typeFilters: { label: string; value: ProductType | "all" }[] = [
 ];
 
 type SortOption = "default" | "price-low" | "price-high" | "rating";
+type StockFilter = "all" | "in-stock" | "out-of-stock";
+
+const matchesCategory = (product: Product, category: string) => {
+  if (category === "all") return true;
+  if (category === "Split ACs") return product.name.includes("Split") && product.type === "cooling";
+  if (category === "Window ACs") return product.name.includes("Window");
+  if (category === "Hot & Cold ACs") return product.type === "both";
+  if (category === "Portable ACs") return product.name.includes("Portable");
+  if (category === "Cassette ACs") return product.name.includes("Cassette");
+  return true;
+};
 
 const Products = () => {
   const [searchParams] = useSearchParams();
@@ -22,8 +34,10 @@ const Products = () => {
   const [typeFilter, setTypeFilter] = useState<ProductType | "all">("all");
   const [brandFilter, setBrandFilter] = useState<string>("all");
   const [capacityFilter, setCapacityFilter] = useState<string>("all");
+  const [categoryFilter, setCategoryFilter] = useState<string>("all");
+  const [stockFilter, setStockFilter] = useState<StockFilter>("all");
   const [sort, setSort] = useState<SortOption>("default");
-  const [showFilters, setShowFilters] = useState(false);
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   useEffect(() => {
     const brand = searchParams.get("brand");
@@ -53,8 +67,11 @@ const Products = () => {
       result = result.filter(p => p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q) || p.description.toLowerCase().includes(q));
     }
     if (typeFilter !== "all") result = result.filter(p => p.type === typeFilter);
+    if (categoryFilter !== "all") result = result.filter(p => matchesCategory(p, categoryFilter));
     if (brandFilter !== "all") result = result.filter(p => p.brand === brandFilter);
     if (capacityFilter !== "all") result = result.filter(p => p.capacity === capacityFilter);
+    if (stockFilter === "in-stock") result = result.filter(p => p.inStock);
+    if (stockFilter === "out-of-stock") result = result.filter(p => !p.inStock);
 
     switch (sort) {
       case "price-low": result.sort((a, b) => a.price - b.price); break;
@@ -63,17 +80,111 @@ const Products = () => {
     }
 
     return result;
-  }, [search, typeFilter, brandFilter, capacityFilter, sort]);
+  }, [search, typeFilter, categoryFilter, brandFilter, capacityFilter, stockFilter, sort]);
 
-  const hasActiveFilters = typeFilter !== "all" || brandFilter !== "all" || capacityFilter !== "all" || search !== "";
+  const hasActiveFilters = typeFilter !== "all" || categoryFilter !== "all" || brandFilter !== "all" || capacityFilter !== "all" || stockFilter !== "all" || search !== "";
 
   const clearFilters = () => {
     setSearch("");
     setTypeFilter("all");
+    setCategoryFilter("all");
     setBrandFilter("all");
     setCapacityFilter("all");
+    setStockFilter("all");
     setSort("default");
   };
+
+  const FilterPanel = ({ compact = false }: { compact?: boolean }) => (
+    <div className="space-y-4">
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <Input
+          placeholder="Search ACs..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="pl-9 text-sm"
+        />
+      </div>
+
+      <div className="space-y-2">
+        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Categories</p>
+        <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+          <SelectTrigger className="text-sm">
+            <SelectValue placeholder="Category" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Categories</SelectItem>
+            {categories.map(c => <SelectItem key={c.name} value={c.name}>{c.name}</SelectItem>)}
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="space-y-2">
+        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">AC Type</p>
+        <div className="grid grid-cols-1 gap-2">
+          {typeFilters.map((f) => (
+            <Button
+              key={f.value}
+              variant={typeFilter === f.value ? "default" : "outline"}
+              size="sm"
+              onClick={() => setTypeFilter(f.value)}
+              className={typeFilter === f.value && f.value === "both" ? "bg-gradient-warm border-0" : typeFilter === f.value ? "bg-gradient-cool border-0" : ""}
+            >
+              {f.label}
+            </Button>
+          ))}
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Availability</p>
+        <Select value={stockFilter} onValueChange={(v) => setStockFilter(v as StockFilter)}>
+          <SelectTrigger className="text-sm">
+            <SelectValue placeholder="Stock" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Stock</SelectItem>
+            <SelectItem value="in-stock">In Stock</SelectItem>
+            <SelectItem value="out-of-stock">Out of Stock</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="grid grid-cols-1 gap-3">
+        <div className="space-y-2">
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Brand</p>
+          <Select value={brandFilter} onValueChange={setBrandFilter}>
+            <SelectTrigger className="text-sm">
+              <SelectValue placeholder="Brand" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Brands</SelectItem>
+              {brands.map(b => <SelectItem key={b} value={b}>{b}</SelectItem>)}
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Capacity</p>
+          <Select value={capacityFilter} onValueChange={setCapacityFilter}>
+            <SelectTrigger className="text-sm">
+              <SelectValue placeholder="Capacity" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Capacities</SelectItem>
+              {capacities.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+      {hasActiveFilters && (
+        <Button variant="ghost" size="sm" onClick={clearFilters} className="w-full gap-1 text-destructive">
+          <X className="h-4 w-4" /> Clear All Filters
+        </Button>
+      )}
+    </div>
+  );
 
   return (
     <div className="min-h-screen">
