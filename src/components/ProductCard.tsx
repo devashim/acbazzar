@@ -79,7 +79,12 @@ const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
         </div>
 
         <h3 className="font-heading text-sm sm:text-lg font-semibold text-foreground line-clamp-1">{product.name}</h3>
-        <p className="mt-0.5 text-[10px] sm:text-xs text-muted-foreground">{product.capacity}</p>
+        <div className="mt-0.5 flex items-center justify-between gap-2">
+          <p className="text-[10px] sm:text-xs text-muted-foreground">{product.capacity}</p>
+          <Badge variant={product.inStock ? "secondary" : "destructive"} className="text-[9px] sm:text-[10px]">
+            {product.inStock ? "In Stock" : "Out of Stock"}
+          </Badge>
+        </div>
 
         {/* Features */}
         <div className="mt-2 sm:mt-3 flex flex-wrap gap-1 sm:gap-1.5">
@@ -102,10 +107,10 @@ const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
               </span>
             )}
           </div>
-          <a href={getWhatsAppLink(product)} target="_blank" rel="noopener noreferrer" className="shrink-0">
-            <Button size="sm" className="gap-1 sm:gap-1.5 bg-[#25D366] text-primary-foreground hover:bg-[#20bd5a] text-xs sm:text-sm h-7 sm:h-8 px-2 sm:px-3">
+          <a href={product.inStock ? getWhatsAppLink(product) : undefined} target="_blank" rel="noopener noreferrer" className="shrink-0">
+            <Button disabled={!product.inStock} size="sm" className="gap-1 sm:gap-1.5 bg-[#25D366] text-primary-foreground hover:bg-[#20bd5a] text-xs sm:text-sm h-7 sm:h-8 px-2 sm:px-3 disabled:bg-muted disabled:text-muted-foreground">
               <MessageCircle className="h-3 w-3 sm:h-4 sm:w-4" />
-              <span className="hidden xs:inline">Order</span>
+              <span className="hidden xs:inline">{product.inStock ? "Order" : "Sold"}</span>
             </Button>
           </a>
         </div>
