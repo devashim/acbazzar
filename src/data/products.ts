@@ -2,6 +2,10 @@ export type ProductType = "cooling" | "heating" | "both";
 
 import mboKwbIndoor from "@/assets/mbo-kwb-indoor.png";
 import mboKwbOutdoor from "@/assets/mbo-kwb-outdoor.png";
+import daikinFkcaqSeries from "@/assets/daikin-fkcaq-series.png";
+import daikinFdmaSeries from "@/assets/daikin-fdma-series.png";
+import daikinFcaSeries from "@/assets/daikin-fca-series.png";
+import daikinFthtSeries from "@/assets/daikin-ftht-series.png";
 
 export interface Product {
   id: string;
@@ -106,6 +110,10 @@ export const products: Product[] = [
   { id: pid(), name: "Split AC", brand: "Daikin", price: 34000, originalPrice: 39000, description: "Reliable split AC with Power Chill and Econo mode.", type: "cooling", capacity: "1.5 Ton", rating: 4.5, reviewCount: 210, features: ["5 Star", "Power Chill", "Econo Mode", "Self Diagnosis"], image: img(0), inStock: true },
   { id: pid(), name: "Hot & Cold AC", brand: "Daikin", price: 55000, originalPrice: 62000, description: "All-season premium AC with advanced air purification.", type: "both", capacity: "1.5 Ton", rating: 4.7, reviewCount: 145, features: ["Hot & Cold", "Air Purifier", "Flash Streamer", "3D Airflow"], image: img(3), inStock: true },
   { id: pid(), name: "Cassette AC", brand: "Daikin", price: 92000, description: "Commercial 4-way cassette for offices and large halls.", type: "cooling", capacity: "3 Ton", rating: 4.6, reviewCount: 38, features: ["4-Way Airflow", "Commercial", "Auto Restart", "Turbo Mode"], image: img(6), inStock: true },
+  { id: pid(), name: "FKCAQ Series Cassette AC", brand: "Daikin", price: 0, description: "Daikin FKCAQ Series cassette AC with inverter outdoor unit and wired controller for commercial spaces.", type: "cooling", capacity: "3 Ton", rating: 4.6, reviewCount: 0, features: ["Cassette", "Commercial", "Inverter", "R32"], image: daikinFkcaqSeries, badge: "New Model", inStock: true, specifications: { "Model": "FKCAQ Series" } },
+  { id: pid(), name: "FDMA Series Duct AC", brand: "Daikin", price: 0, description: "Daikin FDMA Series duct AC with concealed indoor unit, inverter outdoor unit, and wired controller.", type: "cooling", capacity: "3 Ton", rating: 4.5, reviewCount: 0, features: ["Duct", "Commercial", "Inverter", "R32"], image: daikinFdmaSeries, badge: "New Model", inStock: true, specifications: { "Model": "FDMA Series" } },
+  { id: pid(), name: "FCA Series Cassette AC", brand: "Daikin", price: 0, description: "Daikin FCA Series cassette AC for offices, showrooms, and larger commercial rooms.", type: "cooling", capacity: "3 Ton", rating: 4.6, reviewCount: 0, features: ["Cassette", "Commercial", "4-Way Airflow", "R32"], image: daikinFcaSeries, badge: "New Model", inStock: true, specifications: { "Model": "FCA Series" } },
+  { id: pid(), name: "FTHT Series Hot & Cold AC", brand: "Daikin", price: 0, description: "Daikin FTHT Series wall mounted hot and cold inverter AC with indoor, outdoor, and remote unit.", type: "both", capacity: "1.5 Ton", rating: 4.7, reviewCount: 0, features: ["Hot & Cold", "Wall Mounted", "Inverter", "R32"], image: daikinFthtSeries, badge: "New Model", inStock: true, specifications: { "Model": "FTHT Series" } },
 
   // ===== Mitsubishi =====
   { id: pid(), name: "Inverter Split AC", brand: "Mitsubishi", price: 55000, originalPrice: 62000, description: "Japanese engineering with 3D i-See sensor for even cooling.", type: "cooling", capacity: "1.5 Ton", rating: 4.7, reviewCount: 98, features: ["5 Star", "3D i-See Sensor", "Inverter", "Dual Barrier Coating"], image: img(0), badge: "Premium", inStock: true },
