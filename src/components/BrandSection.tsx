@@ -88,6 +88,7 @@ const BrandSection = ({ brand, products }: BrandSectionProps) => {
         {products.map((product) => {
           const isCooling = product.type === "cooling";
           const isBoth = product.type === "both";
+          const showFullProductImage = product.brand === "MBO" || product.brand === "Daikin";
           const discount = product.originalPrice
             ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
             : 0;
@@ -115,7 +116,7 @@ const BrandSection = ({ brand, products }: BrandSectionProps) => {
                   <img
                     src={product.image}
                     alt={`${product.brand} ${product.name}`}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className={`h-full w-full transition-transform duration-500 group-hover:scale-105 ${showFullProductImage ? "object-contain p-3" : "object-cover"}`}
                     loading="lazy"
                     width={400}
                     height={250}

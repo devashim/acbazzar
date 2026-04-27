@@ -27,6 +27,7 @@ const ProductDetail = () => {
 
   const isCooling = product.type === "cooling";
   const isBoth = product.type === "both";
+  const showFullProductImage = product.brand === "MBO" || product.brand === "Daikin";
   const discount = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
@@ -68,7 +69,7 @@ const ProductDetail = () => {
               <img
                 src={product.image}
                 alt={`${product.brand} ${product.name}`}
-                className="h-56 w-full object-cover sm:h-72 md:h-[400px] lg:h-[450px]"
+                className={`h-56 w-full sm:h-72 md:h-[400px] lg:h-[450px] ${showFullProductImage ? "object-contain p-4 sm:p-6" : "object-cover"}`}
                 width={600}
                 height={450}
               />

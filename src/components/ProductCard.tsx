@@ -13,6 +13,7 @@ interface ProductCardProps {
 const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
   const isCooling = product.type === "cooling";
   const isBoth = product.type === "both";
+  const showFullProductImage = product.brand === "MBO" || product.brand === "Daikin";
   const discount = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
@@ -48,7 +49,7 @@ const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
         <img
           src={product.image}
           alt={`${product.brand} ${product.name}`}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+          className={`h-full w-full transition-transform duration-500 group-hover:scale-105 ${showFullProductImage ? "object-contain p-3 sm:p-4" : "object-cover"}`}
           loading="lazy"
           width={600}
           height={400}
