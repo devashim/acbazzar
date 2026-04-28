@@ -11,6 +11,8 @@ interface BrandSectionProps {
 }
 
 const BrandSection = ({ brand, products }: BrandSectionProps) => {
+  const brandProductsLink = `/products?brand=${encodeURIComponent(brand.toLowerCase())}`;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -18,11 +20,14 @@ const BrandSection = ({ brand, products }: BrandSectionProps) => {
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.5 }}
     >
-      <div className="flex items-center justify-between mb-5">
-        <h3 className="font-heading text-2xl font-bold text-foreground">{brand}</h3>
-        <Link to="/products">
+      <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h3 className="font-heading text-2xl font-bold text-foreground">{brand}</h3>
+          <p className="text-sm text-muted-foreground">{products.length} available product{products.length !== 1 ? "s" : ""}</p>
+        </div>
+        <Link to={brandProductsLink}>
           <Button variant="ghost" size="sm" className="gap-1 text-cool hover:text-cool-dark">
-            View All <ArrowRight className="h-4 w-4" />
+            View {brand} <ArrowRight className="h-4 w-4" />
           </Button>
         </Link>
       </div>
