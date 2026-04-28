@@ -177,13 +177,13 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Shop by Brand - Horizontal Scroll */}
+      {/* Shop by Brand */}
       <section className="py-16 md:py-20">
         <div className="container">
           <motion.div {...fadeUp} className="text-center mb-12">
             <span className="text-sm font-semibold uppercase tracking-wider text-cool">All Brands</span>
             <h2 className="mt-1 font-heading text-3xl font-bold md:text-4xl">Shop by Brand</h2>
-            <p className="mt-2 text-muted-foreground">Explore products from our {brands.length} trusted brands</p>
+            <p className="mt-2 text-muted-foreground">Explore products from our {brands.length} trusted brands in a responsive showcase</p>
           </motion.div>
           <div className="space-y-12">
             {brands.map((brand) => {
