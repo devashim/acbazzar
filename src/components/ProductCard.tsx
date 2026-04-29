@@ -1,7 +1,7 @@
 import { Star, MessageCircle, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Product, getWhatsAppLink } from "@/data/products";
+import { Product, getWhatsAppLink, formatPrice } from "@/data/products";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -13,7 +13,7 @@ interface ProductCardProps {
 const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
   const isCooling = product.type === "cooling";
   const isBoth = product.type === "both";
-  const showFullProductImage = product.brand === "MBO" || product.brand === "Daikin";
+  const showFullProductImage = true;
   const discount = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
@@ -100,11 +100,11 @@ const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
         <div className="mt-3 sm:mt-4 flex items-end justify-between gap-1">
           <div className="flex flex-col min-w-0">
             <span className="text-base sm:text-xl md:text-2xl font-heading font-bold text-foreground truncate">
-              ₹{product.price.toLocaleString("en-IN")}
+              {formatPrice(product.price)}
             </span>
             {product.originalPrice && (
               <span className="text-[10px] sm:text-sm text-muted-foreground line-through">
-                ₹{product.originalPrice.toLocaleString("en-IN")}
+                {formatPrice(product.originalPrice)}
               </span>
             )}
           </div>
