@@ -2,7 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, Star, MessageCircle, Shield, Truck, RotateCcw, Check } from "lucide-react";
-import { products, reviews as allReviews, getWhatsAppLink } from "@/data/products";
+import { products, reviews as allReviews, getWhatsAppLink, formatPrice } from "@/data/products";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -27,7 +27,7 @@ const ProductDetail = () => {
 
   const isCooling = product.type === "cooling";
   const isBoth = product.type === "both";
-  const showFullProductImage = product.brand === "MBO" || product.brand === "Daikin";
+  const showFullProductImage = true;
   const discount = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
@@ -95,11 +95,11 @@ const ProductDetail = () => {
 
             {/* Price */}
             <div className="mt-4 sm:mt-6 flex flex-wrap items-baseline gap-2 sm:gap-3">
-              <span className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-foreground">₹{product.price.toLocaleString("en-IN")}</span>
+              <span className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-foreground">{formatPrice(product.price)}</span>
               {product.originalPrice && (
                 <>
-                  <span className="text-base sm:text-xl text-muted-foreground line-through">₹{product.originalPrice.toLocaleString("en-IN")}</span>
-                  <Badge className="bg-[#25D366] text-primary-foreground border-0 text-xs">Save ₹{(product.originalPrice - product.price).toLocaleString("en-IN")}</Badge>
+                  <span className="text-base sm:text-xl text-muted-foreground line-through">{formatPrice(product.originalPrice)}</span>
+                  <Badge className="bg-[#25D366] text-primary-foreground border-0 text-xs">Save {formatPrice(product.originalPrice - product.price)}</Badge>
                 </>
               )}
             </div>
