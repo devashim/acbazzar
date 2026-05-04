@@ -8,6 +8,7 @@ import BrandSection from "@/components/BrandSection";
 import ProductCarousel from "@/components/ProductCarousel";
 import HeroSlider from "@/components/HeroSlider";
 import PromoBanner from "@/components/PromoBanner";
+import PartnerBrandsSlider from "@/components/PartnerBrandsSlider";
 import { products, brands, getWhatsAppGeneralLink, getProductsByBrand } from "@/data/products";
 
 const fadeUp = {
@@ -261,6 +262,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Partnership Brands Auto Slider */}
+      <PartnerBrandsSlider />
 
       {/* CTA Banner */}
       <section className="py-16 md:py-20">
