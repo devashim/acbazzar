@@ -205,7 +205,7 @@ const Index = () => {
           </motion.div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: Shield, title: "100% Genuine", desc: "Authorized dealer for TOSOT, MBO, Midea, Daikin & Mitsubishi. Full manufacturer warranty.", color: "cool" },
+              { icon: Shield, title: "100% Genuine", desc: "Authorized dealer for TOSOT, MBO, Midea & Daikin. Full manufacturer warranty.", color: "cool" },
               { icon: Truck, title: "Free Installation", desc: "Professional installation by certified technicians included with every purchase.", color: "warm" },
               { icon: Award, title: "Best Prices", desc: "We guarantee the best prices. Found it cheaper? We'll match it.", color: "cool" },
               { icon: Headphones, title: "24/7 WhatsApp Support", desc: "Got questions? Our team is just a WhatsApp message away, anytime.", color: "warm" },
