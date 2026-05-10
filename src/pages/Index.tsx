@@ -205,7 +205,7 @@ const Index = () => {
           </motion.div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: Shield, title: "100% Genuine", desc: "Authorized dealer for TOSOT, MBO, Midea, Daikin & Mitsubishi. Full manufacturer warranty.", color: "cool" },
+              { icon: Shield, title: "100% Genuine", desc: "Authorized dealer for TOSOT, MBO, Midea & Daikin. Full manufacturer warranty.", color: "cool" },
               { icon: Truck, title: "Free Installation", desc: "Professional installation by certified technicians included with every purchase.", color: "warm" },
               { icon: Award, title: "Best Prices", desc: "We guarantee the best prices. Found it cheaper? We'll match it.", color: "cool" },
               { icon: Headphones, title: "24/7 WhatsApp Support", desc: "Got questions? Our team is just a WhatsApp message away, anytime.", color: "warm" },
@@ -237,7 +237,7 @@ const Index = () => {
             {[
               { name: "Rahul S.", city: "Kathmandu", text: "Ordered my TOSOT AC via WhatsApp. Got it installed the next day. Incredible service!", rating: 5 },
               { name: "Priya M.", city: "Pokhara", text: "Best prices I found anywhere. The team helped me choose the right Daikin for my room.", rating: 5 },
-              { name: "Vikram K.", city: "Biratnagar", text: "Bought a Mitsubishi Hot & Cold AC. Perfect for our weather. Highly recommend CoolBreeze!", rating: 5 },
+              { name: "Vikram K.", city: "Biratnagar", text: "Bought a Midea Hot & Cold AC. Perfect for our weather. Highly recommend CoolBreeze!", rating: 5 },
             ].map((t, i) => (
               <motion.div key={t.name} {...fadeUp} transition={{ duration: 0.4, delay: i * 0.1 }}>
                 <div className="rounded-xl border border-border bg-card p-6">

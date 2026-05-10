@@ -71,7 +71,7 @@ const Footer = () => {
 
         <div className="mt-10 border-t border-background/20 pt-6 flex flex-col items-center justify-between gap-4 sm:flex-row">
           <p className="text-xs opacity-50">© {new Date().getFullYear()} CoolBreeze. All rights reserved.</p>
-          <p className="text-xs opacity-50">Authorized dealer of TOSOT, MBO, Midea, Daikin & Mitsubishi</p>
+          <p className="text-xs opacity-50">Authorized dealer of TOSOT, MBO, Midea & Daikin</p>
         </div>
       </div>
     </footer>
