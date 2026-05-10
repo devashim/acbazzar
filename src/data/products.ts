@@ -139,7 +139,7 @@ export const reviews: Review[] = [
   { id: "r8", productId: "15", name: "Arjun Nair", rating: 4, comment: "Daikin Hot & Cold is perfect for all seasons. Premium build quality.", date: "2026-03-18" },
 ];
 
-export const brands = ["TOSOT", "MBO", "Midea", "Daikin", "Mitsubishi"];
+export const brands = ["TOSOT", "MBO", "Midea", "Daikin"];
 export const capacities = [...new Set(products.map(p => p.capacity))];
 
 export const categories = [
