@@ -39,7 +39,7 @@ const PromoBanner = () => {
                 </h2>
 
                 <p className="mt-3 max-w-xl text-sm text-primary-foreground/90 sm:text-base md:text-lg">
-                  Beat the heat with unbeatable deals on TOSOT, Daikin, Midea, Mitsubishi & MBO. Free installation & instant WhatsApp delivery!
+                  Beat the heat with unbeatable deals on TOSOT, Daikin, Midea & MBO. Free installation & instant WhatsApp delivery!
                 </p>
 
                 {/* Perks */}
