@@ -34,12 +34,6 @@ const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
         </div>
       )}
 
-      {/* Discount badge */}
-      {discount > 0 && (
-        <div className="absolute right-2 top-2 sm:right-3 sm:top-3 z-10">
-          <Badge variant="destructive" className="border-0 font-bold text-[10px] sm:text-xs">-{discount}%</Badge>
-        </div>
-      )}
 
       {/* Type indicator strip */}
       <div className={`h-1 w-full ${isCooling ? "bg-gradient-cool" : "bg-gradient-warm"}`} />
