@@ -95,7 +95,7 @@ const About = () => {
             <p className="mt-3 text-muted-foreground">We are proud authorized dealers of leading AC brands</p>
           </motion.div>
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-5">
-            {["TOSOT", "MBO", "Midea", "Daikin", "Mitsubishi"].map((brand, i) => (
+            {["TOSOT", "MBO", "Midea", "Daikin"].map((brand, i) => (
               <motion.div key={brand} {...fadeUp} transition={{ duration: 0.4, delay: i * 0.08 }}>
                 <div className="group flex items-center justify-center rounded-xl border border-border bg-card p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-cool transition-transform group-hover:scale-110">
