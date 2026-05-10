@@ -237,7 +237,7 @@ const Index = () => {
             {[
               { name: "Rahul S.", city: "Kathmandu", text: "Ordered my TOSOT AC via WhatsApp. Got it installed the next day. Incredible service!", rating: 5 },
               { name: "Priya M.", city: "Pokhara", text: "Best prices I found anywhere. The team helped me choose the right Daikin for my room.", rating: 5 },
-              { name: "Vikram K.", city: "Biratnagar", text: "Bought a Mitsubishi Hot & Cold AC. Perfect for our weather. Highly recommend CoolBreeze!", rating: 5 },
+              { name: "Vikram K.", city: "Biratnagar", text: "Bought a Midea Hot & Cold AC. Perfect for our weather. Highly recommend CoolBreeze!", rating: 5 },
             ].map((t, i) => (
               <motion.div key={t.name} {...fadeUp} transition={{ duration: 0.4, delay: i * 0.1 }}>
                 <div className="rounded-xl border border-border bg-card p-6">
