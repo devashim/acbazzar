@@ -134,7 +134,7 @@ export const reviews: Review[] = [
   { id: "r3", productId: "13", name: "Anil Kumar", rating: 5, comment: "Daikin quality is unmatched. The Coanda airflow is a game-changer. Worth every rupee.", date: "2026-03-01" },
   { id: "r4", productId: "9", name: "Sneha Patel", rating: 5, comment: "Midea inverter is superb. Forest Fresh technology keeps the air clean!", date: "2026-02-28" },
   { id: "r5", productId: "3", name: "Vikram Singh", rating: 5, comment: "Using this TOSOT Hot & Cold in winter. Heating is powerful enough. Highly recommend.", date: "2026-03-10" },
-  { id: "r6", productId: "17", name: "Deepak Joshi", rating: 4, comment: "Mitsubishi engineering is top notch. Cools the room in minutes.", date: "2026-01-15" },
+  
   { id: "r7", productId: "5", name: "Meena Reddy", rating: 4, comment: "MBO is great value for money. Perfect for a budget setup.", date: "2026-02-05" },
   { id: "r8", productId: "15", name: "Arjun Nair", rating: 4, comment: "Daikin Hot & Cold is perfect for all seasons. Premium build quality.", date: "2026-03-18" },
 ];
